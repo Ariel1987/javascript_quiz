@@ -39,6 +39,7 @@ In this case, DON'T call the function from task 8
     let question2 = new Question ('How would you describe JavaScript?', ['Easy', 'Fun', 'Hard'], 1);
     let question3 = new Question ('Do you enjoy programming?', ['yes', 'no'], 0);
     let questions = [question1, question2, question3];
+    let exit;
 
     Question.prototype.randomQuestions = function() {
         randomQuestion = questions[Math.floor(Math.random() * questions.length)];
@@ -50,6 +51,7 @@ In this case, DON'T call the function from task 8
     }
 
     Question.prototype.checkAnswer = function() {
+        let promptAnswer = parseInt(exit);
         if (promptAnswer === randomQuestion.correct) {
             console.log('You are right');
         } else {
@@ -57,9 +59,15 @@ In this case, DON'T call the function from task 8
         }
     }
 
-    Question.prototype.randomQuestions();
-
-    let promptAnswer = parseInt(prompt('Type your answer'));
-
-    Question.prototype.checkAnswer();
+    function nextQuestion() {
+        Question.prototype.randomQuestions();
+        exit = prompt('Type your answer');
+    
+        if (exit !== 'exit') {
+            Question.prototype.checkAnswer();
+            nextQuestion();   
+        }
+    }
+    nextQuestion();
+       
 }) ();
