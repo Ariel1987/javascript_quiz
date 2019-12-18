@@ -29,6 +29,27 @@ In this case, DON'T call the function from task 8
 */
 
 (function () {
+
+    Question.prototype.randomQuestions = function() {
+        randomQuestion = questions[Math.floor(Math.random() * questions.length)];
+        console.log(randomQuestion.question);    
+    
+        for (let i = 0; i < randomQuestion.answers.length; i++) {
+            console.log(i + ': ' + randomQuestion.answers[i]);
+        } 
+    }
+
+    Question.prototype.checkAnswer = function(promptAnswer) {
+
+        if (!promptAnswer) return;
+
+        if (promptAnswer === randomQuestion.correct) {
+            console.log('You are right');
+        } else {
+            console.log('You are wrong');
+        }
+    }
+
     function Question(question, answers, correct) {
         this.question = question;
         this.answers = answers;
@@ -40,26 +61,14 @@ In this case, DON'T call the function from task 8
     let question3 = new Question ('Do you enjoy programming?', ['yes', 'no'], 0);
     let questions = [question1, question2, question3];
 
-    Question.prototype.randomQuestions = function() {
-        randomQuestion = questions[Math.floor(Math.random() * questions.length)];
-        console.log(randomQuestion.question);    
+    let exit;
     
-        for (let i = 0; i < randomQuestion.answers.length; i++) {
-            console.log(i + ': ' + randomQuestion.answers[i]);
-        } 
-    }
-
-    Question.prototype.checkAnswer = function() {
-        if (promptAnswer === randomQuestion.correct) {
-            console.log('You are right');
-        } else {
-            console.log('You are wrong');
-        }
-    }
-
-    Question.prototype.randomQuestions();
-
-    let promptAnswer = parseInt(prompt('Type your answer'));
-
-    Question.prototype.checkAnswer();
+    do {
+        Question.prototype.randomQuestions();
+        exit = prompt('Type your answer')
+        let promptAnswer = parseInt(exit);
+        Question.prototype.checkAnswer(promptAnswer);
+        if (exit == null) break;
+    } while (exit !== 'exit');
+    
 }) ();
