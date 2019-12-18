@@ -30,6 +30,13 @@ In this case, DON'T call the function from task 8
 
 (function () {
 
+    function Question(question, answers, correct) {
+        this.question = question;
+        this.answers = answers;
+        this.correct = correct;
+        this.score = 0;
+    }
+
     Question.prototype.randomQuestions = function() {
         randomQuestion = questions[Math.floor(Math.random() * questions.length)];
         console.log(randomQuestion.question);    
@@ -42,19 +49,17 @@ In this case, DON'T call the function from task 8
     Question.prototype.checkAnswer = function(promptAnswer) {
 
         if (!promptAnswer) return;
-
+        console.log(promptAnswer)
         if (promptAnswer === randomQuestion.correct) {
             console.log('You are right');
+            console.log('Your score is: ', parseInt(++this.score), ' points');
+            console.log(`You're fucking cool!!!`);
         } else {
             console.log('You are wrong');
         }
     }
 
-    function Question(question, answers, correct) {
-        this.question = question;
-        this.answers = answers;
-        this.correct = correct;
-    }
+
 
     let question1 = new Question ('What\'s your teacher\'s name?', ['John', 'Mike', 'Jonas'], 2);
     let question2 = new Question ('How would you describe JavaScript?', ['Easy', 'Fun', 'Hard'], 1);
@@ -66,9 +71,8 @@ In this case, DON'T call the function from task 8
     do {
         Question.prototype.randomQuestions();
         exit = prompt('Type your answer')
-        let promptAnswer = parseInt(exit);
-        Question.prototype.checkAnswer(promptAnswer);
+        Question.prototype.checkAnswer(parseInt(exit));
         if (exit == null) break;
     } while (exit !== 'exit');
-    
+
 }) ();
